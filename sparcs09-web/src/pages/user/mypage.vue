@@ -1,29 +1,31 @@
 <template>
-  <user-form :user="user" :submitCallback="signupCallback"></user-form>
+  <user-form :user="user" :submitCallback="updateCallback"></user-form>
 </template>
+
+
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import UserForm from '@/components/forms/UserForm';
 import * as types from '../../store/types';
 
-function signup(newUser) {
+function update(updateData) {
   const data = {
-    address: newUser.address,
-    kakao_id: newUser.kakao_id,
-    phone: newUser.phone,
-    terms_agreed: newUser.terms_agreed,
+    address: updateData.adress,
+    kakao_id: updateData.kakao_id,
+    phone: updateData.phone,
   };
+
   this.updateUser({
-    sid: newUser.sid,
+    sid: updateData.sid,
     user: data,
-  }).then(() => this.$router.push('/'));
+  });
 }
 
 export default {
-  name: 'SignUp',
+  name: 'MyPage',
 
   methods: {
-    signupCallback: signup,
+    updateCallback: update,
     ...mapActions({
       updateUser: types.USER_PATCH_USER_WITH_SID,
     }),
@@ -40,3 +42,7 @@ export default {
   },
 };
 </script>
+
+<style>
+
+</style>
